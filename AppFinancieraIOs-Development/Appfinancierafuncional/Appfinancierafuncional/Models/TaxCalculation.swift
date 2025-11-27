@@ -1,7 +1,7 @@
 import Foundation
 
 struct TaxCalculation: Identifiable, Codable {
-    var id = UUID()
+    var id: UUID
     var grossSalary: Double
     var lowerLimit: Double
     var excessOverLowerLimit: Double
@@ -13,17 +13,30 @@ struct TaxCalculation: Identifiable, Codable {
     var employmentSubsidy: Double
     var date: Date
     
-    init(grossSalary: Double) {
+    init(
+        id: UUID = UUID(),
+        grossSalary: Double,
+        lowerLimit: Double = 15487.72,
+        excessOverLowerLimit: Double? = nil,
+        marginalPercentage: Double = 21.36,
+        marginalTax: Double? = nil,
+        fixedTaxQuota: Double = 1640.18,
+        totalISR: Double? = nil,
+        imss: Double? = nil,
+        employmentSubsidy: Double = 0.0,
+        date: Date = Date()
+    ) {
+        self.id = id
         self.grossSalary = grossSalary
-        self.lowerLimit = 15487.72 // Límite inferior 2024
-        self.excessOverLowerLimit = max(0, grossSalary - lowerLimit)
-        self.marginalPercentage = 21.36 // Porcentaje sobre excedente
-        self.marginalTax = excessOverLowerLimit * (marginalPercentage / 100)
-        self.fixedTaxQuota = 1640.18 // Cuota fija del impuesto
-        self.totalISR = marginalTax + fixedTaxQuota
-        self.imss = grossSalary * 0.0275 // 2.75% del IMSS
-        self.employmentSubsidy = 0.0 // Se calcula según tablas del SAT
-        self.date = Date()
+        self.lowerLimit = lowerLimit
+        self.excessOverLowerLimit = excessOverLowerLimit ?? max(0, grossSalary - lowerLimit)
+        self.marginalPercentage = marginalPercentage
+        self.marginalTax = marginalTax ?? (self.excessOverLowerLimit * (marginalPercentage / 100))
+        self.fixedTaxQuota = fixedTaxQuota
+        self.totalISR = totalISR ?? (self.marginalTax + fixedTaxQuota)
+        self.imss = imss ?? (grossSalary * 0.0275)
+        self.employmentSubsidy = employmentSubsidy
+        self.date = date
     }
     
     var netSalary: Double {

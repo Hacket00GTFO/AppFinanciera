@@ -2,15 +2,35 @@ import Foundation
 import SwiftUI
 
 struct Constants {
-    // Colores de la aplicación
+    // MARK: - API Configuration
+    struct API {
+        // Lee la URL base del Info.plist, fallback a localhost
+        static let baseURL: String = {
+            if let url = Bundle.main.infoDictionary?["API_BASE_URL"] as? String {
+                return url
+            }
+            // Fallback para desarrollo local
+            return "http://localhost:5000/api"
+        }()
+    }
+    
+    // Colores de la aplicación - Glass Design
     struct Colors {
+        // Colores principales con Glass design
         static let primary = Color.blue
         static let secondary = Color.gray
         static let success = Color.green
         static let warning = Color.orange
         static let danger = Color.red
+        
+        // Fondos adaptables a Glass
         static let background = Color(.systemBackground)
         static let secondaryBackground = Color(.systemGray6)
+        
+        // Colores translúcidos para Glass Morphism
+        static let glassTint = Color.blue.opacity(0.1)
+        static let glassOverlay = Color.white.opacity(0.15)
+        static let glassOverlayDark = Color.black.opacity(0.1)
     }
     
     // Configuración de la aplicación

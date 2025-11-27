@@ -1,12 +1,28 @@
 import Foundation
 
 struct Deduction: Identifiable, Codable {
-    var id = UUID()
+    var id: UUID
     var type: DeductionType
     var amount: Double
     var percentage: Double?
     var date: Date
     var description: String?
+    
+    init(
+        id: UUID = UUID(),
+        type: DeductionType,
+        amount: Double,
+        percentage: Double? = nil,
+        date: Date = Date(),
+        description: String? = nil
+    ) {
+        self.id = id
+        self.type = type
+        self.amount = amount
+        self.percentage = percentage
+        self.date = date
+        self.description = description
+    }
     
     enum DeductionType: String, CaseIterable, Codable {
         case isr = "ISR"

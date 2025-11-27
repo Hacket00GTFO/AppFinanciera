@@ -9,23 +9,34 @@ struct ExpenseCategoryCard: View {
     @State private var isExpanded = false
     
     var body: some View {
-        VStack {
-            Button(action: { isExpanded.toggle() }) {
-                HStack {
+        VStack(spacing: 0) {
+            Button(action: { withAnimation { isExpanded.toggle() } }) {
+                HStack(spacing: 12) {
                     Image(systemName: icon)
+                        .font(.system(size: 18, weight: .semibold))
                         .foregroundColor(color)
+                        .frame(width: 32, height: 32)
+                        .background(color.opacity(0.15))
+                        .cornerRadius(8)
+                    
                     Text(title)
                         .font(.headline)
+                    
                     Spacer()
+                    
                     Image(systemName: isExpanded ? "chevron.up" : "chevron.down")
+                        .font(.system(size: 14, weight: .semibold))
                         .foregroundColor(.gray)
                 }
-                .padding()
+                .padding(16)
             }
             .buttonStyle(PlainButtonStyle())
             
             if isExpanded {
-                LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), spacing: 15) {
+                Divider()
+                    .padding(.horizontal, 16)
+                
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), spacing: 12) {
                     ForEach(categories, id: \.self) { category in
                         ExpenseInputField(
                             category: category,
@@ -38,12 +49,10 @@ struct ExpenseCategoryCard: View {
                         )
                     }
                 }
-                .padding(.horizontal)
-                .padding(.bottom)
+                .padding(16)
             }
         }
-        .background(Color(.systemGray6))
-        .cornerRadius(8)
+        .glassCard(cornerRadius: 16)
     }
 }
 
@@ -53,18 +62,25 @@ struct ExpenseInputField: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            HStack {
+            HStack(spacing: 8) {
                 Image(systemName: category.icon)
+                    .font(.system(size: 14, weight: .semibold))
                     .foregroundColor(Color(category.color))
+                
                 Text(category.rawValue)
                     .font(.caption)
                     .foregroundColor(.secondary)
+                    .lineLimit(1)
             }
             
-            TextField("Importe", value: $amount, format: .currency(code: "MXN"))
-                .textFieldStyle(RoundedBorderTextFieldStyle())
+            TextField("0.00", value: $amount, format: .currency(code: "MXN"))
+                .textFieldStyle(.roundedBorder)
                 .keyboardType(.decimalPad)
+                .font(.system(size: 14, weight: .semibold))
         }
+        .padding(10)
+        .background(Color(.systemGray6).opacity(0.5))
+        .cornerRadius(10)
     }
 }
 

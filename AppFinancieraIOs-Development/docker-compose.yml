@@ -1,0 +1,76 @@
+version: '3.8'
+
+services:
+  # Base de datos PostgreSQL
+  db:
+    image: postgres:15-alpine
+    container_name: appfinanciera-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres_password_secure
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      # Monta los scripts SQL para inicialización automática
+      - ./BackendAPI/SQL:/docker-entrypoint-initdb.d:ro
+      # Volumen persistente para datos
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - appfinanciera-network
+
+  # Backend API .NET
+  backendapi:
+    build:
+      context: ./BackendAPI
+      dockerfile: Dockerfile
+    container_name: appfinanciera-api
+    environment:
+      # Cadena de conexión a PostgreSQL
+      ConnectionStrings__DefaultConnection: "Host=db;Port=5432;Database=FinancialAppDB;Username=postgres;Password=postgres_password_secure"
+      # Configuración de ASP.NET
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: "http://+:80"
+      # Control de migraciones
+      APPLY_MIGRATIONS: "true"
+      # CORS (ajusta según necesidad)
+      CORS_ALLOWED_ORIGINS: "http://localhost:3000,http://localhost:8080"
+    ports:
+      - "5000:80"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      # Volumen para desarrollo (opcional, comentar en producción)
+      - ./BackendAPI:/app
+    networks:
+      - appfinanciera-network
+    restart: unless-stopped
+
+  # PgAdmin para gestión de BD (opcional)
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: appfinanciera-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@local
+      PGADMIN_DEFAULT_PASSWORD: admin_password_secure
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    networks:
+      - appfinanciera-network
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+    driver: local
+
+networks:
+  appfinanciera-network:
+    driver: bridge

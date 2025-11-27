@@ -1,7 +1,7 @@
 import Foundation
 
 struct Expense: Identifiable, Codable {
-    var id = UUID()
+    var id: UUID
     var amount: Double
     var category: ExpenseCategory
     var date: Date
@@ -18,7 +18,18 @@ struct Expense: Identifiable, Codable {
         case yearly = "Anual"
     }
     
-    init(amount: Double, category: ExpenseCategory, date: Date = Date(), description: String = "", isRecurring: Bool = false, recurringPeriod: RecurringPeriod? = nil, notes: String? = nil) {
+    init(
+        id: UUID = UUID(),
+        amount: Double,
+        category: ExpenseCategory,
+        date: Date = Date(),
+        description: String = "",
+        isRecurring: Bool = false,
+        recurringPeriod: RecurringPeriod? = nil,
+        notes: String? = nil,
+        receiptImage: Data? = nil
+    ) {
+        self.id = id
         self.amount = amount
         self.category = category
         self.date = date
@@ -26,5 +37,18 @@ struct Expense: Identifiable, Codable {
         self.isRecurring = isRecurring
         self.recurringPeriod = recurringPeriod
         self.notes = notes
+        self.receiptImage = receiptImage
+    }
+    
+    // Custom coding para ignorar receiptImage en JSON (binario local)
+    enum CodingKeys: String, CodingKey {
+        case id
+        case amount
+        case category
+        case date
+        case description
+        case isRecurring
+        case recurringPeriod
+        case notes
     }
 }

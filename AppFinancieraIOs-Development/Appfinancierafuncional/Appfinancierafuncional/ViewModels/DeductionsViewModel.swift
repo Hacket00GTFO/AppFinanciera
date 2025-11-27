@@ -5,6 +5,10 @@ class DeductionsViewModel: ObservableObject {
     @Published var deductions: [Deduction] = []
     @Published var showAddDeduction = false
     @Published var currentTaxCalculation: TaxCalculation?
+    @Published var isLoading = false
+    @Published var errorMessage: String?
+    
+    private let apiClient = APIClient.shared
     
     var totalISR: Double {
         deductions.filter { $0.type == .isr }.reduce(0) { $0 + $1.amount }
@@ -23,34 +27,119 @@ class DeductionsViewModel: ObservableObject {
     }
     
     init() {
-        loadSampleData()
-    }
-    
-    func addDeduction(_ deduction: Deduction) {
-        deductions.append(deduction)
-        updateTaxCalculation()
-        objectWillChange.send()
-    }
-    
-    func deleteDeduction(at offsets: IndexSet) {
-        deductions.remove(atOffsets: offsets)
-        updateTaxCalculation()
-        objectWillChange.send()
-    }
-    
-    func updateDeduction(_ deduction: Deduction) {
-        if let index = deductions.firstIndex(where: { $0.id == deduction.id }) {
-            deductions[index] = deduction
-            updateTaxCalculation()
-            objectWillChange.send()
+        Task {
+            await fetchDeductions()
         }
     }
     
-    private func updateTaxCalculation() {
-        // Simular un cálculo fiscal basado en deducciones totales
-        let estimatedGrossSalary = totalDeductions * 3.5 // Estimación aproximada
-        currentTaxCalculation = TaxCalculation(grossSalary: estimatedGrossSalary)
+    // MARK: - API Methods
+    
+    @MainActor
+    func fetchDeductions() async {
+        isLoading = true
+        errorMessage = nil
+        
+        do {
+            let dtos = try await apiClient.getDeductions()
+            let deductionsList = dtos.map { dto -> Deduction in
+                Deduction(
+                    id: dto.id,
+                    type: Deduction.DeductionType(rawValue: dto.type) ?? .other,
+                    amount: dto.amount,
+                    percentage: dto.percentage,
+                    date: dto.date,
+                    description: dto.description
+                )
+            }
+            self.deductions = deductionsList
+            updateTaxCalculation()
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+        
+        isLoading = false
     }
+    
+    @MainActor
+    func addDeduction(_ deduction: Deduction) async {
+        isLoading = true
+        errorMessage = nil
+        
+        do {
+            let dto = DeductionDto(
+                type: deduction.type.rawValue,
+                amount: deduction.amount,
+                percentage: deduction.percentage,
+                date: deduction.date,
+                description: deduction.description
+            )
+            
+            let responseDto = try await apiClient.createDeduction(dto)
+            let newDeduction = Deduction(
+                id: responseDto.id,
+                type: Deduction.DeductionType(rawValue: responseDto.type) ?? .other,
+                amount: responseDto.amount,
+                percentage: responseDto.percentage,
+                date: responseDto.date,
+                description: responseDto.description
+            )
+            
+            deductions.append(newDeduction)
+            updateTaxCalculation()
+            showAddDeduction = false
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+        
+        isLoading = false
+    }
+    
+    @MainActor
+    func deleteDeduction(at offsets: IndexSet) async {
+        isLoading = true
+        errorMessage = nil
+        
+        for index in offsets {
+            let deduction = deductions[index]
+            do {
+                try await apiClient.deleteDeduction(id: deduction.id)
+                deductions.remove(at: index)
+                updateTaxCalculation()
+            } catch {
+                errorMessage = error.localizedDescription
+            }
+        }
+        
+        isLoading = false
+    }
+    
+    @MainActor
+    func updateDeduction(_ deduction: Deduction) async {
+        isLoading = true
+        errorMessage = nil
+        
+        if let index = deductions.firstIndex(where: { $0.id == deduction.id }) {
+            do {
+                let dto = DeductionDto(
+                    type: deduction.type.rawValue,
+                    amount: deduction.amount,
+                    percentage: deduction.percentage,
+                    date: deduction.date,
+                    description: deduction.description
+                )
+                
+                try await apiClient.updateDeduction(id: deduction.id, dto)
+                deductions[index] = deduction
+                updateTaxCalculation()
+            } catch {
+                errorMessage = error.localizedDescription
+            }
+        }
+        
+        isLoading = false
+    }
+    
+    // MARK: - Helper Methods
     
     func getDeductionsByType(_ type: Deduction.DeductionType) -> [Deduction] {
         return deductions.filter { $0.type == type }
@@ -66,32 +155,9 @@ class DeductionsViewModel: ObservableObject {
         return TaxCalculation(grossSalary: grossSalary)
     }
     
-    private func loadSampleData() {
-        // Datos de ejemplo
-        let sampleDeductions = [
-            Deduction(
-                type: .isr,
-                amount: 3672.0,
-                percentage: 21.36,
-                date: Date(),
-                description: "ISR mensual"
-            ),
-            Deduction(
-                type: .imss,
-                amount: 687.23,
-                percentage: 2.75,
-                date: Date(),
-                description: "IMSS mensual"
-            ),
-            Deduction(
-                type: .employmentSubsidy,
-                amount: 0.0,
-                date: Date(),
-                description: "Sin subsidio aplicable"
-            )
-        ]
-        
-        deductions = sampleDeductions
-        updateTaxCalculation()
+    private func updateTaxCalculation() {
+        // Simular un cálculo fiscal basado en deducciones totales
+        let estimatedGrossSalary = totalDeductions * 3.5 // Estimación aproximada
+        currentTaxCalculation = TaxCalculation(grossSalary: estimatedGrossSalary)
     }
 }

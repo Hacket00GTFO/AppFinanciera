@@ -27,7 +27,7 @@ struct FloatingActionButton: View {
             action()
         }) {
             ZStack {
-                // Efecto de pulso
+                // Efecto de pulso con glass morphism
                 if showPulse {
                     Circle()
                         .fill(color.opacity(0.3))
@@ -41,7 +41,7 @@ struct FloatingActionButton: View {
                         )
                 }
                 
-                // Botón principal
+                // Botón principal con glass effect
                 Circle()
                     .fill(
                         LinearGradient(
@@ -51,11 +51,22 @@ struct FloatingActionButton: View {
                         )
                     )
                     .frame(width: size, height: size)
+                    .overlay(
+                        Circle()
+                            .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                            .frame(width: size, height: size)
+                    )
                     .shadow(
-                        color: color.opacity(0.4),
-                        radius: 8,
+                        color: color.opacity(0.5),
+                        radius: 12,
                         x: 0,
-                        y: 4
+                        y: 6
+                    )
+                    .shadow(
+                        color: Color.black.opacity(0.1),
+                        radius: 3,
+                        x: 0,
+                        y: 1
                     )
                     .scaleEffect(isPressed ? 0.95 : 1.0)
                     .animation(.easeInOut(duration: 0.1), value: isPressed)
