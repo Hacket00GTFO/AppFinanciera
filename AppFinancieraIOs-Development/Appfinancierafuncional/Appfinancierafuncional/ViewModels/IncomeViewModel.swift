@@ -37,19 +37,8 @@ class IncomeViewModel: ObservableObject {
         
         do {
             let dtos = try await apiClient.getIncomes(startDate: startDate, endDate: endDate)
-            let incomes = dtos.map { dto -> Income in
-                Income(
-                    id: dto.id,
-                    grossAmount: dto.grossAmount,
-                    netAmount: dto.netAmount,
-                    date: dto.date,
-                    type: Income.IncomeType(rawValue: dto.type) ?? .other,
-                    description: dto.description,
-                    isRecurring: dto.isRecurring,
-                    recurringPeriod: dto.recurringPeriod.flatMap { Income.RecurringPeriod(rawValue: $0) }
-                )
-            }
-            self.incomes = incomes
+            // Usar el conversor de DTOs para mapeo correcto de tipos
+            self.incomes = dtos.map { $0.toIncome() }
             updateTaxCalculation()
         } catch {
             errorMessage = error.localizedDescription
@@ -75,16 +64,7 @@ class IncomeViewModel: ObservableObject {
             )
             
             let responseDto = try await apiClient.createIncome(dto)
-            let newIncome = Income(
-                id: responseDto.id,
-                grossAmount: responseDto.grossAmount,
-                netAmount: responseDto.netAmount,
-                date: responseDto.date,
-                type: Income.IncomeType(rawValue: responseDto.type) ?? .other,
-                description: responseDto.description,
-                isRecurring: responseDto.isRecurring,
-                recurringPeriod: responseDto.recurringPeriod.flatMap { Income.RecurringPeriod(rawValue: $0) }
-            )
+            let newIncome = responseDto.toIncome()
             
             incomes.append(newIncome)
             updateTaxCalculation()
