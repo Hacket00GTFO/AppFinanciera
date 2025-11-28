@@ -93,7 +93,7 @@ echo   PgAdmin:     http://localhost:8080
 echo   PostgreSQL:  localhost:5432
 echo.
 echo [CREDENCIALES]
-echo   PgAdmin Email:    admin@local
+echo   PgAdmin Email:    admin@localhost.com
 echo   PgAdmin Password: admin_password_secure
 echo   PostgreSQL User:  postgres
 echo   PostgreSQL Pass:  postgres_password_secure

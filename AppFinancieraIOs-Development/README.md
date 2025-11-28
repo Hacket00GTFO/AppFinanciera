@@ -205,39 +205,86 @@ Para conectar la aplicación iOS con el backend:
    ```
 4. Realizar las llamadas HTTP usando URLSession o Alamofire
 
-## Documentación Adicional
+## Guía para Pruebas
 
-- `BackendAPI/README.md` - Documentación detallada del backend
-- `BackendAPI/SQL/README.md` - Guía de scripts SQL
-- Swagger UI - Documentación interactiva de la API en http://localhost:5000
+### Pruebas Backend
+
+1. Verifica que el backend esté ejecutándose correctamente:
+   - Ejecuta `dotnet run` en la carpeta `BackendAPI`.
+   - Accede a Swagger UI en `http://localhost:5000` para probar los endpoints manualmente.
+
+2. Pruebas automáticas:
+   - Si existen pruebas unitarias, ejecuta:
+     ```bash
+     dotnet test
+     ```
+   - Para probar la base de datos, usa los scripts de la carpeta `BackendAPI/SQL/`:
+     - `03_InsertSampleData.sql` para cargar datos de ejemplo.
+     - `04_Queries.sql` para validar consultas y resultados.
+
+3. Validación de endpoints:
+   - Usa herramientas como Postman o curl para enviar peticiones a los endpoints listados en este README.
+   - Verifica respuestas, códigos de estado y datos retornados.
+
+### Pruebas Frontend (iOS)
+
+1. Abre el proyecto en Xcode y selecciona el simulador.
+2. Ejecuta la app (Cmd + R) y navega por las vistas principales:
+   - Registro de ingresos, gastos y deducciones.
+   - Visualización de gráficos y dashboard.
+   - Prueba la integración con el backend (verifica que la URL base esté configurada correctamente).
+
+3. Si tienes pruebas unitarias en Swift, ejecútalas desde el menú Product > Test (Cmd + U).
+
+### Pruebas de Integración
+
+1. Asegúrate de que el backend y el frontend estén ejecutándose.
+2. Realiza operaciones desde la app iOS y verifica que los datos se reflejen en la base de datos y en la API.
+3. Valida la consistencia de los datos entre la app y el backend.
+
+
+## Levantamiento de Contenedores (Docker)
+
+El proyecto incluye archivos para levantar los servicios con Docker:
+
+1. Asegúrate de tener Docker Desktop instalado y ejecutándose.
+2. Desde la raíz del proyecto, ejecuta:
+   ```powershell
+   .\start-docker.bat
+   ```
+   o en sistemas Unix:
+   ```bash
+   ./start-docker.sh
+   ```
+3. Esto levantará los servicios definidos en `docker-compose.yml`.
+4. Verifica que los contenedores estén corriendo con:
+   ```powershell
+   docker ps
+   ```
+5. El backend estará disponible en los puertos definidos en el archivo compose.
+
+## Guía Única de Pruebas y Uso
+
+Toda la información sobre pruebas, levantamiento de servicios, endpoints y scripts se encuentra en este documento. No existen otros archivos guía en el proyecto; consulta únicamente este README para cualquier procedimiento de desarrollo, pruebas o despliegue.
 
 ## Scripts SQL Disponibles
 
 La carpeta `BackendAPI/SQL/` contiene:
 
-- `01_CreateDatabase.sql` - Crear la base de datos
-- `02_CreateTables.sql` - Crear tablas (opcional, EF lo hace automáticamente)
-- `03_InsertSampleData.sql` - Insertar datos de ejemplo para pruebas
-- `04_Queries.sql` - Consultas útiles para verificar y analizar datos
+- `01_CreateDatabase.sql`: Crear la base de datos.
+- `02_CreateTables.sql`: Crear tablas (opcional, EF lo hace automáticamente).
+- `03_InsertSampleData.sql`: Insertar datos de ejemplo para pruebas.
+- `04_Queries.sql`: Consultas útiles para verificar y analizar datos.
 
 ## Desarrollo
 
 ### Comandos útiles del Backend
 
 ```bash
-# Restaurar paquetes
 dotnet restore
-
-# Ejecutar en modo desarrollo con recarga automática
 dotnet watch run
-
-# Crear una nueva migración
 dotnet ef migrations add NombreMigracion
-
-# Aplicar migraciones
 dotnet ef database update
-
-# Ver migraciones aplicadas
 dotnet ef migrations list
 ```
 

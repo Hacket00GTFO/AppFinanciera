@@ -8,7 +8,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres_password_secure
-      POSTGRES_DB: postgres
+      POSTGRES_DB: FinancialAppDB
     ports:
       - "5432:5432"
     volumes:
@@ -45,9 +45,6 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    volumes:
-      # Volumen para desarrollo (opcional, comentar en producción)
-      - ./BackendAPI:/app
     networks:
       - appfinanciera-network
     restart: unless-stopped
@@ -57,7 +54,7 @@ services:
     image: dpage/pgadmin4:latest
     container_name: appfinanciera-pgadmin
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@local
+      PGADMIN_DEFAULT_EMAIL: admin@localhost.com
       PGADMIN_DEFAULT_PASSWORD: admin_password_secure
     ports:
       - "8080:80"
