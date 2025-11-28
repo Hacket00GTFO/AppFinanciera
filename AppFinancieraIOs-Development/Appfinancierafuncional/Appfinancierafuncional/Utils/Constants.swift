@@ -40,13 +40,24 @@ struct Constants {
         static let build = "1"
     }
     
-    // Configuración fiscal
+    // Configuración fiscal (SAT México 2024)
+    // NOTA: Los cálculos detallados se encuentran en TaxCalculation.swift
     struct Tax {
+        // Valores de referencia para la banda fiscal más común (15,487.72 - 31,236.49)
         static let isrLowerLimit = 15487.72
         static let isrMarginalRate = 21.36
         static let isrFixedQuota = 1640.18
-        static let imssRate = 2.75
+        
+        // IMSS cuota obrera total (2.375%)
+        static let imssRate = 2.375
+        static let imssMaxContributionBase = 81427.50 // 25 UMAs mensuales
+        
+        // UMA 2024
+        static let umaDaily = 108.57
+        static let umaMonthly = 3300.53
+        
         static let currency = "MXN"
+        static let locale = "es_MX"
     }
     
     // Configuración de períodos

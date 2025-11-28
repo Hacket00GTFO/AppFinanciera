@@ -100,7 +100,9 @@ struct AddIncomeView: View {
             recurringPeriod: isRecurring ? selectedRecurringPeriod : nil
         )
         
-        viewModel.addIncome(income)
+        Task {
+            await viewModel.addIncome(income)
+        }
         dismiss()
     }
 }
@@ -422,19 +424,20 @@ struct TaxCalculationDetailView: View {
         NavigationView {
             List {
                 Section("Desglose del cálculo fiscal") {
-                    DetailRow(title: "Sueldo bruto", value: taxCalculation.grossSalary, color: .primary)
-                    DetailRow(title: "Límite inferior", value: taxCalculation.lowerLimit, color: .secondary)
-                    DetailRow(title: "Excedente del límite inferior", value: taxCalculation.excessOverLowerLimit, color: .secondary)
-                    DetailRow(title: "Porcentaje sobre excedente", value: taxCalculation.marginalPercentage, color: .secondary, isPercentage: true)
-                    DetailRow(title: "Impuesto marginal", value: taxCalculation.marginalTax, color: .red)
-                    DetailRow(title: "Cuota fija del impuesto", value: taxCalculation.fixedTaxQuota, color: .red)
-                    DetailRow(title: "ISR", value: -taxCalculation.totalISR, color: .red)
-                    DetailRow(title: "IMSS", value: -taxCalculation.imss, color: .red)
-                    DetailRow(title: "Subsidio al empleo", value: taxCalculation.employmentSubsidy, color: .green)
+                    DetailRow(title: "Sueldo bruto", value: taxCalculation.grossSalaryDouble, color: .primary)
+                    DetailRow(title: "Límite inferior", value: taxCalculation.lowerLimitDouble, color: .secondary)
+                    DetailRow(title: "Excedente del límite inferior", value: taxCalculation.excessOverLowerLimitDouble, color: .secondary)
+                    DetailRow(title: "Porcentaje sobre excedente", value: taxCalculation.marginalPercentageDouble, color: .secondary, isPercentage: true)
+                    DetailRow(title: "Impuesto marginal", value: taxCalculation.marginalTaxDouble, color: .red)
+                    DetailRow(title: "Cuota fija del impuesto", value: taxCalculation.fixedTaxQuotaDouble, color: .red)
+                    DetailRow(title: "ISR", value: -taxCalculation.totalISRDouble, color: .red)
+                    DetailRow(title: "IMSS", value: -taxCalculation.imssDouble, color: .red)
+                    DetailRow(title: "Subsidio al empleo", value: taxCalculation.employmentSubsidyDouble, color: .green)
                 }
                 
                 Section("Resultado") {
-                    DetailRow(title: "Salario neto", value: taxCalculation.netSalary, color: .green, isBold: true)
+                    DetailRow(title: "Salario neto", value: taxCalculation.netSalaryDouble, color: .green, isBold: true)
+                    DetailRow(title: "Tasa efectiva", value: taxCalculation.effectiveTaxRateDouble * 100, color: .secondary, isPercentage: true)
                 }
             }
             .navigationTitle("Cálculo Fiscal")

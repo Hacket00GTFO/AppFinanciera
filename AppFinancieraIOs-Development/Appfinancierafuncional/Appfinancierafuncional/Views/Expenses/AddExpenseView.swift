@@ -96,7 +96,9 @@ struct AddExpenseView: View {
             notes: notes.isEmpty ? nil : notes
         )
         
-        viewModel.addExpense(expense)
+        Task {
+            await viewModel.addExpense(expense)
+        }
         dismiss()
     }
 }

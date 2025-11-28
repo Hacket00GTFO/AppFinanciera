@@ -91,7 +91,9 @@ struct AddDeductionView: View {
             description: description.isEmpty ? nil : description
         )
         
-        viewModel.addDeduction(deduction)
+        Task {
+            await viewModel.addDeduction(deduction)
+        }
         dismiss()
     }
 }
@@ -287,7 +289,7 @@ struct DeductionSummaryCard: View {
                 if percentage > 0 {
                     DeductionSummaryRow(
                         title: "Porcentaje",
-                        value: "\(percentage, default: "%.2f")%",
+                        value: String(format: "%.2f%%", percentage),
                         icon: "percent",
                         color: .secondary
                     )

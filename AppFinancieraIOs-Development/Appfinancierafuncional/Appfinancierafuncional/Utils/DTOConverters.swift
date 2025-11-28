@@ -95,33 +95,80 @@ extension IncomeResponseDto {
 extension ExpenseCategory {
     /// Convierte una cadena del servidor API a ExpenseCategory
     init?(fromServerValue value: String) {
+        // Intentar directo primero (rawValue en español)
         if let category = ExpenseCategory(rawValue: value) {
             self = category
             return
         }
         
         let lowercased = value.lowercased()
-        if let category = ExpenseCategory(rawValue: lowercased) {
-            self = category
+        
+        // Mapeo de valores del servidor (inglés/español) a categorías locales
+        switch lowercased {
+        // Fijos obligatorios
+        case "rent", "alquiler", "hipoteca", "alquiler/hipoteca":
+            self = .rent
+        case "loans", "préstamos", "prestamos":
+            self = .loans
+        case "taxes", "impuestos":
+            self = .taxes
+        case "others", "otros":
+            self = .others
+        // Fijos reducibles
+        case "water", "agua":
+            self = .water
+        case "gas":
+            self = .gas
+        case "electricity", "luz", "electricidad":
+            self = .electricity
+        case "internet", "internet + tel + tv", "telefono", "teléfono":
+            self = .internet
+        case "food", "alimentación", "alimentacion", "comida", "groceries":
+            self = .food
+        case "transport", "transportation", "transporte":
+            self = .transport
+        case "education", "escolares", "escuela":
+            self = .education
+        case "contingencies", "imprevistos":
+            self = .contingencies
+        // Variables
+        case "leisure", "ocio", "entretenimiento", "entertainment":
+            self = .leisure
+        case "travel", "viajes":
+            self = .travel
+        case "subscriptions", "suscripciones":
+            self = .subscriptions
+        case "otherexpenses", "otros gastos", "other":
+            self = .otherExpenses
+        default:
+            return nil
+        }
+    }
+}
+
+// MARK: - Expense Recurring Period Conversion Helper
+
+extension Expense.RecurringPeriod {
+    /// Convierte una cadena del servidor API a RecurringPeriod
+    init?(fromServerValue value: String) {
+        // Intentar directo primero
+        if let period = Expense.RecurringPeriod(rawValue: value) {
+            self = period
             return
         }
         
-        // Mapeo manual si es necesario
+        let lowercased = value.lowercased()
+        
+        // Mapeo manual
         switch lowercased {
-        case "food", "comida", "groceries":
-            self = .food
-        case "transportation", "transporte":
-            self = .transportation
-        case "entertainment", "entretenimiento":
-            self = .entertainment
-        case "utilities", "servicios":
-            self = .utilities
-        case "healthcare", "salud":
-            self = .healthcare
-        case "shopping", "compras":
-            self = .shopping
-        case "other", "otro":
-            self = .other
+        case "weekly", "semanal":
+            self = .weekly
+        case "biweekly", "quincenal":
+            self = .biweekly
+        case "monthly", "mensual":
+            self = .monthly
+        case "yearly", "anual":
+            self = .yearly
         default:
             return nil
         }
@@ -133,16 +180,22 @@ extension ExpenseCategory {
 extension ExpenseResponseDto {
     /// Convierte un DTO del servidor a un modelo Expense
     func toExpense() -> Expense {
-        Expense(
+        // Convertir receiptImage de String? a Data? si es base64
+        var receiptData: Data? = nil
+        if let receiptString = receiptImage {
+            receiptData = Data(base64Encoded: receiptString)
+        }
+        
+        return Expense(
             id: id,
             amount: amount,
-            category: ExpenseCategory(fromServerValue: category) ?? .other,
+            category: ExpenseCategory(fromServerValue: category) ?? .otherExpenses,
             date: date,
             description: description,
             isRecurring: isRecurring,
-            recurringPeriod: recurringPeriod.flatMap { Income.RecurringPeriod(fromServerValue: $0) },
+            recurringPeriod: recurringPeriod.flatMap { Expense.RecurringPeriod(fromServerValue: $0) },
             notes: notes,
-            receiptImage: receiptImage
+            receiptImage: receiptData
         )
     }
 }

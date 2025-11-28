@@ -469,29 +469,45 @@ struct AutomaticTaxCalculationView: View {
             HStack {
                 Text("Ingreso bruto")
                 Spacer()
-                Text(taxCalculation.grossSalary, format: .currency(code: "MXN"))
+                Text(taxCalculation.grossSalaryDouble, format: .currency(code: "MXN"))
             }
             
             HStack {
                 Text("ISR calculado")
                 Spacer()
-                Text(taxCalculation.totalISR, format: .currency(code: "MXN"))
+                Text(taxCalculation.totalISRDouble, format: .currency(code: "MXN"))
                     .foregroundColor(.red)
             }
             
             HStack {
                 Text("IMSS calculado")
                 Spacer()
-                Text(taxCalculation.imss, format: .currency(code: "MXN"))
+                Text(taxCalculation.imssDouble, format: .currency(code: "MXN"))
                     .foregroundColor(.red)
             }
             
             HStack {
+                Text("Subsidio al empleo")
+                Spacer()
+                Text(taxCalculation.employmentSubsidyDouble, format: .currency(code: "MXN"))
+                    .foregroundColor(.green)
+            }
+            
+            Divider()
+            
+            HStack {
                 Text("Salario neto")
                 Spacer()
-                Text(taxCalculation.netSalary, format: .currency(code: "MXN"))
+                Text(taxCalculation.netSalaryDouble, format: .currency(code: "MXN"))
                     .foregroundColor(.green)
                     .fontWeight(.semibold)
+            }
+            
+            HStack {
+                Text("Tasa efectiva")
+                Spacer()
+                Text(String(format: "%.2f%%", taxCalculation.effectiveTaxRateDouble * 100))
+                    .foregroundColor(.secondary)
             }
         }
         .padding()

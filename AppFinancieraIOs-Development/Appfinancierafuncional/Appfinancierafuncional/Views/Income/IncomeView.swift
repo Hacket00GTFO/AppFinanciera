@@ -188,21 +188,21 @@ struct TaxSummaryCard: View {
             VStack(spacing: 12) {
                 TaxSummaryRow(
                     title: "ISR",
-                    amount: taxCalculation.totalISR,
+                    amount: taxCalculation.totalISRDouble,
                     color: .red,
                     icon: "minus.circle.fill"
                 )
                 
                 TaxSummaryRow(
                     title: "IMSS",
-                    amount: taxCalculation.imss,
+                    amount: taxCalculation.imssDouble,
                     color: .red,
                     icon: "minus.circle.fill"
                 )
                 
                 TaxSummaryRow(
                     title: "Subsidio",
-                    amount: taxCalculation.employmentSubsidy,
+                    amount: taxCalculation.employmentSubsidyDouble,
                     color: .green,
                     icon: "plus.circle.fill"
                 )
@@ -211,7 +211,7 @@ struct TaxSummaryCard: View {
                 
                 TaxSummaryRow(
                     title: "Salario Neto",
-                    amount: taxCalculation.netSalary,
+                    amount: taxCalculation.netSalaryDouble,
                     color: .green,
                     icon: "checkmark.circle.fill",
                     isTotal: true
