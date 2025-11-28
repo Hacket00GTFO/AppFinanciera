@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		FB09C5B42E73B38900C99DF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB09C5A42E73B38900C99DF0 /* Assets.xcassets */; };
+		FB09C5E22E73B38900C99DF0 /* Appfinancierafuncional.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5E32E73B38900C99DF0 /* Appfinancierafuncional.xcdatamodeld */; };
 		FB09C5B62E73B38900C99DF0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5A62E73B38900C99DF0 /* ContentView.swift */; };
 		FB09C5B72E73B38900C99DF0 /* AppfinancierafuncionalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5A72E73B38900C99DF0 /* AppfinancierafuncionalApp.swift */; };
 		FB09C5B82E73B38900C99DF0 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5A82E73B38900C99DF0 /* Persistence.swift */; };
@@ -30,10 +31,31 @@
 		FB09C5CA2E73B38900C99DF0 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5BAE73B38900C99DF0 /* APIClient.swift */; };
 		FB09C5CC2E73B38900C99DF0 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5BCE73B38900C99DF0 /* DesignSystem.swift */; };
 		FB09C5CD2E73B38900C99DF0 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5BDE73B38900C99DF0 /* DateExtensions.swift */; };
+		FB09C5CE2E73B38900C99DF0 /* AnimatedLineChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5BFE73B38900C99DF0 /* AnimatedLineChart.swift */; };
+		FB09C5CF2E73B38900C99DF0 /* AnimationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5C0E73B38900C99DF0 /* AnimationExtensions.swift */; };
+		FB09C5D02E73B38900C99DF0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5C1E73B38900C99DF0 /* Constants.swift */; };
+		FB09C5D12E73B38900C99DF0 /* CurrencyFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5C2E73B38900C99DF0 /* CurrencyFormatter.swift */; };
+		FB09C5D22E73B38900C99DF0 /* DTOConverters.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5C3E73B38900C99DF0 /* DTOConverters.swift */; };
+		FB09C5D32E73B38900C99DF0 /* FloatingActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5C4E73B38900C99DF0 /* FloatingActionButton.swift */; };
+		FB09C5D42E73B38900C99DF0 /* GlassStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5C5E73B38900C99DF0 /* GlassStyles.swift */; };
+		FB09C5D52E73B38900C99DF0 /* OrientationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5C6E73B38900C99DF0 /* OrientationManager.swift */; };
+		FB09C5D62E73B38900C99DF0 /* AddDeductionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5C7E73B38900C99DF0 /* AddDeductionView.swift */; };
+		FB09C5D72E73B38900C99DF0 /* DeductionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5C8E73B38900C99DF0 /* DeductionsView.swift */; };
+		FB09C5D82E73B38900C99DF0 /* AddExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5C9E73B38900C99DF0 /* AddExpenseView.swift */; };
+		FB09C5D92E73B38900C99DF0 /* ExpenseCategoryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5CAE73B38900C99DF0 /* ExpenseCategoryCard.swift */; };
+		FB09C5DA2E73B38900C99DF0 /* ExpensesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5CBE73B38900C99DF0 /* ExpensesView.swift */; };
+		FB09C5DB2E73B38900C99DF0 /* AddIncomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5CCE73B38900C99DF0 /* AddIncomeView.swift */; };
+		FB09C5DC2E73B38900C99DF0 /* IncomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5CDE73B38900C99DF0 /* IncomeView.swift */; };
+		FB09C5DD2E73B38900C99DF0 /* ActivePeriodsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5CEE73B38900C99DF0 /* ActivePeriodsCard.swift */; };
+		FB09C5DE2E73B38900C99DF0 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5CFE73B38900C99DF0 /* DashboardView.swift */; };
+		FB09C5DF2E73B38900C99DF0 /* RecentIncomeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5D0E73B38900C99DF0 /* RecentIncomeCard.swift */; };
+		FB09C5E02E73B38900C99DF0 /* TopExpensesCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5D1E73B38900C99DF0 /* TopExpensesCard.swift */; };
+		FB09C5E12E73B38900C99DF0 /* ReportsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5D2E73B38900C99DF0 /* ReportsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		FB09C5A12E73B38700C99DF0 /* Appfinancierafuncional.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Appfinancierafuncional.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB09C5E32E73B38900C99DF0 /* Appfinancierafuncional.xcdatamodeld */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodeld; path = Appfinancierafuncional.xcdatamodeld; sourceTree = "<group>"; };
 		FB09C5A42E73B38900C99DF0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FB09C5A62E73B38900C99DF0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		FB09C5A72E73B38900C99DF0 /* AppfinancierafuncionalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppfinancierafuncionalApp.swift; sourceTree = "<group>"; };
@@ -58,6 +80,26 @@
 		FB09C5BAE73B38900C99DF0 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking/APIClient.swift; sourceTree = "<group>"; };
 		FB09C5BCE73B38900C99DF0 /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils/DesignSystem.swift; sourceTree = "<group>"; };
 		FB09C5BDE73B38900C99DF0 /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils/DateExtensions.swift; sourceTree = "<group>"; };
+		FB09C5BFE73B38900C99DF0 /* AnimatedLineChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils/AnimatedLineChart.swift; sourceTree = "<group>"; };
+		FB09C5C0E73B38900C99DF0 /* AnimationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils/AnimationExtensions.swift; sourceTree = "<group>"; };
+		FB09C5C1E73B38900C99DF0 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils/Constants.swift; sourceTree = "<group>"; };
+		FB09C5C2E73B38900C99DF0 /* CurrencyFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils/CurrencyFormatter.swift; sourceTree = "<group>"; };
+		FB09C5C3E73B38900C99DF0 /* DTOConverters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils/DTOConverters.swift; sourceTree = "<group>"; };
+		FB09C5C4E73B38900C99DF0 /* FloatingActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils/FloatingActionButton.swift; sourceTree = "<group>"; };
+		FB09C5C5E73B38900C99DF0 /* GlassStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils/GlassStyles.swift; sourceTree = "<group>"; };
+		FB09C5C6E73B38900C99DF0 /* OrientationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils/OrientationManager.swift; sourceTree = "<group>"; };
+		FB09C5C7E73B38900C99DF0 /* AddDeductionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/Deductions/AddDeductionView.swift; sourceTree = "<group>"; };
+		FB09C5C8E73B38900C99DF0 /* DeductionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/Deductions/DeductionsView.swift; sourceTree = "<group>"; };
+		FB09C5C9E73B38900C99DF0 /* AddExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/Expenses/AddExpenseView.swift; sourceTree = "<group>"; };
+		FB09C5CAE73B38900C99DF0 /* ExpenseCategoryCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/Expenses/ExpenseCategoryCard.swift; sourceTree = "<group>"; };
+		FB09C5CBE73B38900C99DF0 /* ExpensesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/Expenses/ExpensesView.swift; sourceTree = "<group>"; };
+		FB09C5CCE73B38900C99DF0 /* AddIncomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/Income/AddIncomeView.swift; sourceTree = "<group>"; };
+		FB09C5CDE73B38900C99DF0 /* IncomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/Income/IncomeView.swift; sourceTree = "<group>"; };
+		FB09C5CEE73B38900C99DF0 /* ActivePeriodsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/Main/ActivePeriodsCard.swift; sourceTree = "<group>"; };
+		FB09C5CFE73B38900C99DF0 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/Main/DashboardView.swift; sourceTree = "<group>"; };
+		FB09C5D0E73B38900C99DF0 /* RecentIncomeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/Main/RecentIncomeCard.swift; sourceTree = "<group>"; };
+		FB09C5D1E73B38900C99DF0 /* TopExpensesCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/Main/TopExpensesCard.swift; sourceTree = "<group>"; };
+		FB09C5D2E73B38900C99DF0 /* ReportsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/Reports/ReportsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,14 +129,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		FB09C5A32E73B38700C99DF0 /* Appfinancierafuncional */ = {
-			isa = PBXGroup;
-			children = (
-				FB09C5A72E73B38900C99DF0 /* AppfinancierafuncionalApp.swift */,
-				FB09C5A62E73B38900C99DF0 /* ContentView.swift */,
-				FB09C5A92E73B38900C99DF0 /* Info.plist */,
-				FB09C5A82E73B38900C99DF0 /* Persistence.swift */,
-				FB09C5A42E73B38900C99DF0 /* Assets.xcassets */,
+			FB09C5A32E73B38700C99DF0 /* Appfinancierafuncional */ = {
+				isa = PBXGroup;
+				children = (
+					FB09C5A72E73B38900C99DF0 /* AppfinancierafuncionalApp.swift */,
+					FB09C5A62E73B38900C99DF0 /* ContentView.swift */,
+					FB09C5A92E73B38900C99DF0 /* Info.plist */,
+					FB09C5A82E73B38900C99DF0 /* Persistence.swift */,
+					FB09C5E32E73B38900C99DF0 /* Appfinancierafuncional.xcdatamodeld */,
+					FB09C5A42E73B38900C99DF0 /* Assets.xcassets */,
 				FB09C5AAE73B38900C99DF0 /* DashboardView.swift */,
 				FB09C5ABE73B38900C99DF0 /* IncomeView.swift */,
 				FB09C5ACE73B38900C99DF0 /* ExpensesView.swift */,
@@ -114,6 +157,26 @@
 				FB09C5BAE73B38900C99DF0 /* APIClient.swift */,
 				FB09C5BCE73B38900C99DF0 /* DesignSystem.swift */,
 				FB09C5BDE73B38900C99DF0 /* DateExtensions.swift */,
+				FB09C5BFE73B38900C99DF0 /* AnimatedLineChart.swift */,
+				FB09C5C0E73B38900C99DF0 /* AnimationExtensions.swift */,
+				FB09C5C1E73B38900C99DF0 /* Constants.swift */,
+				FB09C5C2E73B38900C99DF0 /* CurrencyFormatter.swift */,
+				FB09C5C3E73B38900C99DF0 /* DTOConverters.swift */,
+				FB09C5C4E73B38900C99DF0 /* FloatingActionButton.swift */,
+				FB09C5C5E73B38900C99DF0 /* GlassStyles.swift */,
+				FB09C5C6E73B38900C99DF0 /* OrientationManager.swift */,
+				FB09C5C7E73B38900C99DF0 /* AddDeductionView.swift */,
+				FB09C5C8E73B38900C99DF0 /* DeductionsView.swift */,
+				FB09C5C9E73B38900C99DF0 /* AddExpenseView.swift */,
+				FB09C5CAE73B38900C99DF0 /* ExpenseCategoryCard.swift */,
+				FB09C5CBE73B38900C99DF0 /* ExpensesView.swift */,
+				FB09C5CCE73B38900C99DF0 /* AddIncomeView.swift */,
+				FB09C5CDE73B38900C99DF0 /* IncomeView.swift */,
+				FB09C5CEE73B38900C99DF0 /* ActivePeriodsCard.swift */,
+				FB09C5CFE73B38900C99DF0 /* DashboardView.swift */,
+				FB09C5D0E73B38900C99DF0 /* RecentIncomeCard.swift */,
+				FB09C5D1E73B38900C99DF0 /* TopExpensesCard.swift */,
+				FB09C5D2E73B38900C99DF0 /* ReportsView.swift */,
 			);
 			path = Appfinancierafuncional;
 			sourceTree = "<group>";
@@ -190,6 +253,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB09C5E22E73B38900C99DF0 /* Appfinancierafuncional.xcdatamodeld in Sources */,
 				FB09C5B62E73B38900C99DF0 /* ContentView.swift in Sources */,
 				FB09C5B72E73B38900C99DF0 /* AppfinancierafuncionalApp.swift in Sources */,
 				FB09C5B82E73B38900C99DF0 /* Persistence.swift in Sources */,
@@ -212,6 +276,26 @@
 				FB09C5CA2E73B38900C99DF0 /* APIClient.swift in Sources */,
 				FB09C5CC2E73B38900C99DF0 /* DesignSystem.swift in Sources */,
 				FB09C5CD2E73B38900C99DF0 /* DateExtensions.swift in Sources */,
+				FB09C5CE2E73B38900C99DF0 /* AnimatedLineChart.swift in Sources */,
+				FB09C5CF2E73B38900C99DF0 /* AnimationExtensions.swift in Sources */,
+				FB09C5D02E73B38900C99DF0 /* Constants.swift in Sources */,
+				FB09C5D12E73B38900C99DF0 /* CurrencyFormatter.swift in Sources */,
+				FB09C5D22E73B38900C99DF0 /* DTOConverters.swift in Sources */,
+				FB09C5D32E73B38900C99DF0 /* FloatingActionButton.swift in Sources */,
+				FB09C5D42E73B38900C99DF0 /* GlassStyles.swift in Sources */,
+				FB09C5D52E73B38900C99DF0 /* OrientationManager.swift in Sources */,
+				FB09C5D62E73B38900C99DF0 /* AddDeductionView.swift in Sources */,
+				FB09C5D72E73B38900C99DF0 /* DeductionsView.swift in Sources */,
+				FB09C5D82E73B38900C99DF0 /* AddExpenseView.swift in Sources */,
+				FB09C5D92E73B38900C99DF0 /* ExpenseCategoryCard.swift in Sources */,
+				FB09C5DA2E73B38900C99DF0 /* ExpensesView.swift in Sources */,
+				FB09C5DB2E73B38900C99DF0 /* AddIncomeView.swift in Sources */,
+				FB09C5DC2E73B38900C99DF0 /* IncomeView.swift in Sources */,
+				FB09C5DD2E73B38900C99DF0 /* ActivePeriodsCard.swift in Sources */,
+				FB09C5DE2E73B38900C99DF0 /* DashboardView.swift in Sources */,
+				FB09C5DF2E73B38900C99DF0 /* RecentIncomeCard.swift in Sources */,
+				FB09C5E02E73B38900C99DF0 /* TopExpensesCard.swift in Sources */,
+				FB09C5E12E73B38900C99DF0 /* ReportsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
