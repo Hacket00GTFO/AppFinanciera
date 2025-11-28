@@ -6,17 +6,59 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		FB09C5B42E73B38900C99DF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB09C5A42E73B38900C99DF0 /* Assets.xcassets */; };
+		FB09C5B62E73B38900C99DF0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5A62E73B38900C99DF0 /* ContentView.swift */; };
+		FB09C5B72E73B38900C99DF0 /* AppfinancierafuncionalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5A72E73B38900C99DF0 /* AppfinancierafuncionalApp.swift */; };
+		FB09C5B82E73B38900C99DF0 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5A82E73B38900C99DF0 /* Persistence.swift */; };
+		FB09C5BA2E73B38900C99DF0 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5AAE73B38900C99DF0 /* DashboardView.swift */; };
+		FB09C5BB2E73B38900C99DF0 /* IncomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5ABE73B38900C99DF0 /* IncomeView.swift */; };
+		FB09C5BC2E73B38900C99DF0 /* ExpensesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5ACE73B38900C99DF0 /* ExpensesView.swift */; };
+		FB09C5BD2E73B38900C99DF0 /* DeductionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5ADE73B38900C99DF0 /* DeductionsView.swift */; };
+		FB09C5BE2E73B38900C99DF0 /* ReportsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5AEE73B38900C99DF0 /* ReportsView.swift */; };
+		FB09C5BF2E73B38900C99DF0 /* Income.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5AFE73B38900C99DF0 /* Income.swift */; };
+		FB09C5C02E73B38900C99DF0 /* Expense.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5B0E73B38900C99DF0 /* Expense.swift */; };
+		FB09C5C12E73B38900C99DF0 /* Deduction.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5B1E73B38900C99DF0 /* Deduction.swift */; };
+		FB09C5C22E73B38900C99DF0 /* ExpenseCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5B2E73B38900C99DF0 /* ExpenseCategory.swift */; };
+		FB09C5C32E73B38900C99DF0 /* FinancialPeriod.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5B3E73B38900C99DF0 /* FinancialPeriod.swift */; };
+		FB09C5C42E73B38900C99DF0 /* TaxCalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5B4E73B38900C99DF0 /* TaxCalculation.swift */; };
+		FB09C5C52E73B38900C99DF0 /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5B5E73B38900C99DF0 /* DashboardViewModel.swift */; };
+		FB09C5C62E73B38900C99DF0 /* IncomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5B6E73B38900C99DF0 /* IncomeViewModel.swift */; };
+		FB09C5C72E73B38900C99DF0 /* ExpensesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5B7E73B38900C99DF0 /* ExpensesViewModel.swift */; };
+		FB09C5C82E73B38900C99DF0 /* DeductionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5B8E73B38900C99DF0 /* DeductionsViewModel.swift */; };
+		FB09C5C92E73B38900C99DF0 /* ReportsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5B9E73B38900C99DF0 /* ReportsViewModel.swift */; };
+		FB09C5CA2E73B38900C99DF0 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5BAE73B38900C99DF0 /* APIClient.swift */; };
+		FB09C5CC2E73B38900C99DF0 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5BCE73B38900C99DF0 /* DesignSystem.swift */; };
+		FB09C5CD2E73B38900C99DF0 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB09C5BDE73B38900C99DF0 /* DateExtensions.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		FB09C5A12E73B38700C99DF0 /* Appfinancierafuncional.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Appfinancierafuncional.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB09C5A42E73B38900C99DF0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FB09C5A62E73B38900C99DF0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		FB09C5A72E73B38900C99DF0 /* AppfinancierafuncionalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppfinancierafuncionalApp.swift; sourceTree = "<group>"; };
+		FB09C5A82E73B38900C99DF0 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		FB09C5A92E73B38900C99DF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FB09C5AAE73B38900C99DF0 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/Main/DashboardView.swift; sourceTree = "<group>"; };
+		FB09C5ABE73B38900C99DF0 /* IncomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/Income/IncomeView.swift; sourceTree = "<group>"; };
+		FB09C5ACE73B38900C99DF0 /* ExpensesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/Expenses/ExpensesView.swift; sourceTree = "<group>"; };
+		FB09C5ADE73B38900C99DF0 /* DeductionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/Deductions/DeductionsView.swift; sourceTree = "<group>"; };
+		FB09C5AEE73B38900C99DF0 /* ReportsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/Reports/ReportsView.swift; sourceTree = "<group>"; };
+		FB09C5AFE73B38900C99DF0 /* Income.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models/Income.swift; sourceTree = "<group>"; };
+		FB09C5B0E73B38900C99DF0 /* Expense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models/Expense.swift; sourceTree = "<group>"; };
+		FB09C5B1E73B38900C99DF0 /* Deduction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models/Deduction.swift; sourceTree = "<group>"; };
+		FB09C5B2E73B38900C99DF0 /* ExpenseCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models/ExpenseCategory.swift; sourceTree = "<group>"; };
+		FB09C5B3E73B38900C99DF0 /* FinancialPeriod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models/FinancialPeriod.swift; sourceTree = "<group>"; };
+		FB09C5B4E73B38900C99DF0 /* TaxCalculation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models/TaxCalculation.swift; sourceTree = "<group>"; };
+		FB09C5B5E73B38900C99DF0 /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModels/DashboardViewModel.swift; sourceTree = "<group>"; };
+		FB09C5B6E73B38900C99DF0 /* IncomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModels/IncomeViewModel.swift; sourceTree = "<group>"; };
+		FB09C5B7E73B38900C99DF0 /* ExpensesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModels/ExpensesViewModel.swift; sourceTree = "<group>"; };
+		FB09C5B8E73B38900C99DF0 /* DeductionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModels/DeductionsViewModel.swift; sourceTree = "<group>"; };
+		FB09C5B9E73B38900C99DF0 /* ReportsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModels/ReportsViewModel.swift; sourceTree = "<group>"; };
+		FB09C5BAE73B38900C99DF0 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking/APIClient.swift; sourceTree = "<group>"; };
+		FB09C5BCE73B38900C99DF0 /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils/DesignSystem.swift; sourceTree = "<group>"; };
+		FB09C5BDE73B38900C99DF0 /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils/DateExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		FB09C5A32E73B38700C99DF0 /* Appfinancierafuncional */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Appfinancierafuncional;
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		FB09C59E2E73B38700C99DF0 /* Frameworks */ = {
@@ -45,6 +87,37 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		FB09C5A32E73B38700C99DF0 /* Appfinancierafuncional */ = {
+			isa = PBXGroup;
+			children = (
+				FB09C5A72E73B38900C99DF0 /* AppfinancierafuncionalApp.swift */,
+				FB09C5A62E73B38900C99DF0 /* ContentView.swift */,
+				FB09C5A92E73B38900C99DF0 /* Info.plist */,
+				FB09C5A82E73B38900C99DF0 /* Persistence.swift */,
+				FB09C5A42E73B38900C99DF0 /* Assets.xcassets */,
+				FB09C5AAE73B38900C99DF0 /* DashboardView.swift */,
+				FB09C5ABE73B38900C99DF0 /* IncomeView.swift */,
+				FB09C5ACE73B38900C99DF0 /* ExpensesView.swift */,
+				FB09C5ADE73B38900C99DF0 /* DeductionsView.swift */,
+				FB09C5AEE73B38900C99DF0 /* ReportsView.swift */,
+				FB09C5AFE73B38900C99DF0 /* Income.swift */,
+				FB09C5B0E73B38900C99DF0 /* Expense.swift */,
+				FB09C5B1E73B38900C99DF0 /* Deduction.swift */,
+				FB09C5B2E73B38900C99DF0 /* ExpenseCategory.swift */,
+				FB09C5B3E73B38900C99DF0 /* FinancialPeriod.swift */,
+				FB09C5B4E73B38900C99DF0 /* TaxCalculation.swift */,
+				FB09C5B5E73B38900C99DF0 /* DashboardViewModel.swift */,
+				FB09C5B6E73B38900C99DF0 /* IncomeViewModel.swift */,
+				FB09C5B7E73B38900C99DF0 /* ExpensesViewModel.swift */,
+				FB09C5B8E73B38900C99DF0 /* DeductionsViewModel.swift */,
+				FB09C5B9E73B38900C99DF0 /* ReportsViewModel.swift */,
+				FB09C5BAE73B38900C99DF0 /* APIClient.swift */,
+				FB09C5BCE73B38900C99DF0 /* DesignSystem.swift */,
+				FB09C5BDE73B38900C99DF0 /* DateExtensions.swift */,
+			);
+			path = Appfinancierafuncional;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -59,9 +132,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				FB09C5A32E73B38700C99DF0 /* Appfinancierafuncional */,
 			);
 			name = Appfinancierafuncional;
 			packageProductDependencies = (
@@ -109,6 +179,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB09C5B42E73B38900C99DF0 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +190,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB09C5B62E73B38900C99DF0 /* ContentView.swift in Sources */,
+				FB09C5B72E73B38900C99DF0 /* AppfinancierafuncionalApp.swift in Sources */,
+				FB09C5B82E73B38900C99DF0 /* Persistence.swift in Sources */,
+				FB09C5BA2E73B38900C99DF0 /* DashboardView.swift in Sources */,
+				FB09C5BB2E73B38900C99DF0 /* IncomeView.swift in Sources */,
+				FB09C5BC2E73B38900C99DF0 /* ExpensesView.swift in Sources */,
+				FB09C5BD2E73B38900C99DF0 /* DeductionsView.swift in Sources */,
+				FB09C5BE2E73B38900C99DF0 /* ReportsView.swift in Sources */,
+				FB09C5BF2E73B38900C99DF0 /* Income.swift in Sources */,
+				FB09C5C02E73B38900C99DF0 /* Expense.swift in Sources */,
+				FB09C5C12E73B38900C99DF0 /* Deduction.swift in Sources */,
+				FB09C5C22E73B38900C99DF0 /* ExpenseCategory.swift in Sources */,
+				FB09C5C32E73B38900C99DF0 /* FinancialPeriod.swift in Sources */,
+				FB09C5C42E73B38900C99DF0 /* TaxCalculation.swift in Sources */,
+				FB09C5C52E73B38900C99DF0 /* DashboardViewModel.swift in Sources */,
+				FB09C5C62E73B38900C99DF0 /* IncomeViewModel.swift in Sources */,
+				FB09C5C72E73B38900C99DF0 /* ExpensesViewModel.swift in Sources */,
+				FB09C5C82E73B38900C99DF0 /* DeductionsViewModel.swift in Sources */,
+				FB09C5C92E73B38900C99DF0 /* ReportsViewModel.swift in Sources */,
+				FB09C5CA2E73B38900C99DF0 /* APIClient.swift in Sources */,
+				FB09C5CC2E73B38900C99DF0 /* DesignSystem.swift in Sources */,
+				FB09C5CD2E73B38900C99DF0 /* DateExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

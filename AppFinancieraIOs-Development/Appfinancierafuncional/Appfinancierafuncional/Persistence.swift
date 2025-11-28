@@ -16,6 +16,7 @@ struct PersistenceController {
         let viewContext = result.container.viewContext
         
         // Create sample income for preview
+        /*
         let sampleIncome = Income(
             id: UUID(),
             grossAmount: 1000,
@@ -26,6 +27,7 @@ struct PersistenceController {
             isRecurring: true,
             recurringPeriod: .monthly
         )
+        */
         
         do {
             try viewContext.save()
