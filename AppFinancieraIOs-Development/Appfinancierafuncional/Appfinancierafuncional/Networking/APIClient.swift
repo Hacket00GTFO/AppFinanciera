@@ -108,10 +108,12 @@ class APIClient {
         var queryParams: [String] = []
         
         if let startDate = startDate {
-            queryParams.append("startDate=\(ISO8601DateFormatter().string(from: startDate))")
+            let dateString = ISO8601DateFormatter().string(from: startDate)
+            queryParams.append("startDate=\(dateString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? dateString)")
         }
         if let endDate = endDate {
-            queryParams.append("endDate=\(ISO8601DateFormatter().string(from: endDate))")
+            let dateString = ISO8601DateFormatter().string(from: endDate)
+            queryParams.append("endDate=\(dateString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? dateString)")
         }
         
         if !queryParams.isEmpty {
@@ -142,10 +144,12 @@ class APIClient {
         var queryParams: [String] = []
         
         if let startDate = startDate {
-            queryParams.append("startDate=\(ISO8601DateFormatter().string(from: startDate))")
+            let dateString = ISO8601DateFormatter().string(from: startDate)
+            queryParams.append("startDate=\(dateString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? dateString)")
         }
         if let endDate = endDate {
-            queryParams.append("endDate=\(ISO8601DateFormatter().string(from: endDate))")
+            let dateString = ISO8601DateFormatter().string(from: endDate)
+            queryParams.append("endDate=\(dateString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? dateString)")
         }
         
         if !queryParams.isEmpty {
@@ -162,13 +166,16 @@ class APIClient {
         var queryParams: [String] = []
         
         if let startDate = startDate {
-            queryParams.append("startDate=\(ISO8601DateFormatter().string(from: startDate))")
+            let dateString = ISO8601DateFormatter().string(from: startDate)
+            queryParams.append("startDate=\(dateString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? dateString)")
         }
         if let endDate = endDate {
-            queryParams.append("endDate=\(ISO8601DateFormatter().string(from: endDate))")
+            let dateString = ISO8601DateFormatter().string(from: endDate)
+            queryParams.append("endDate=\(dateString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? dateString)")
         }
         if let category = category {
-            queryParams.append("category=\(category)")
+            let encodedCategory = category.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? category
+            queryParams.append("category=\(encodedCategory)")
         }
         
         if !queryParams.isEmpty {
@@ -199,10 +206,12 @@ class APIClient {
         var queryParams: [String] = []
         
         if let startDate = startDate {
-            queryParams.append("startDate=\(ISO8601DateFormatter().string(from: startDate))")
+            let dateString = ISO8601DateFormatter().string(from: startDate)
+            queryParams.append("startDate=\(dateString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? dateString)")
         }
         if let endDate = endDate {
-            queryParams.append("endDate=\(ISO8601DateFormatter().string(from: endDate))")
+            let dateString = ISO8601DateFormatter().string(from: endDate)
+            queryParams.append("endDate=\(dateString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? dateString)")
         }
         
         if !queryParams.isEmpty {

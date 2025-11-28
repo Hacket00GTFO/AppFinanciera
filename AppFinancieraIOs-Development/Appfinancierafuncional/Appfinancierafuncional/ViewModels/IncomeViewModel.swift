@@ -40,8 +40,10 @@ class IncomeViewModel: ObservableObject {
             // Usar el conversor de DTOs para mapeo correcto de tipos
             self.incomes = dtos.map { $0.toIncome() }
             updateTaxCalculation()
+        } catch let error as APIError {
+            errorMessage = error.errorDescription
         } catch {
-            errorMessage = error.localizedDescription
+            errorMessage = "Error al cargar ingresos: \(error.localizedDescription)"
         }
         
         isLoading = false
@@ -69,8 +71,10 @@ class IncomeViewModel: ObservableObject {
             incomes.append(newIncome)
             updateTaxCalculation()
             showAddIncome = false
+        } catch let error as APIError {
+            errorMessage = error.errorDescription
         } catch {
-            errorMessage = error.localizedDescription
+            errorMessage = "Error al agregar ingreso: \(error.localizedDescription)"
         }
         
         isLoading = false
@@ -81,15 +85,28 @@ class IncomeViewModel: ObservableObject {
         isLoading = true
         errorMessage = nil
         
+        var deletedIndices: [Int] = []
         for index in offsets {
             let income = incomes[index]
             do {
                 try await apiClient.deleteIncome(id: income.id)
-                incomes.remove(at: index)
-                updateTaxCalculation()
+                deletedIndices.append(index)
+            } catch let error as APIError {
+                errorMessage = error.errorDescription
+                break
             } catch {
-                errorMessage = error.localizedDescription
+                errorMessage = "Error al eliminar ingreso: \(error.localizedDescription)"
+                break
             }
+        }
+        
+        // Eliminar solo los que se eliminaron exitosamente
+        for index in deletedIndices.reversed() {
+            incomes.remove(at: index)
+        }
+        
+        if !deletedIndices.isEmpty {
+            updateTaxCalculation()
         }
         
         isLoading = false
@@ -100,24 +117,30 @@ class IncomeViewModel: ObservableObject {
         isLoading = true
         errorMessage = nil
         
-        if let index = incomes.firstIndex(where: { $0.id == income.id }) {
-            do {
-                let dto = IncomeDto(
-                    grossAmount: income.grossAmount,
-                    netAmount: income.netAmount,
-                    date: income.date,
-                    type: income.type.rawValue,
-                    description: income.description,
-                    isRecurring: income.isRecurring,
-                    recurringPeriod: income.recurringPeriod?.rawValue
-                )
-                
-                try await apiClient.updateIncome(id: income.id, dto)
-                incomes[index] = income
-                updateTaxCalculation()
-            } catch {
-                errorMessage = error.localizedDescription
-            }
+        guard let index = incomes.firstIndex(where: { $0.id == income.id }) else {
+            errorMessage = "Ingreso no encontrado"
+            isLoading = false
+            return
+        }
+        
+        do {
+            let dto = IncomeDto(
+                grossAmount: income.grossAmount,
+                netAmount: income.netAmount,
+                date: income.date,
+                type: income.type.rawValue,
+                description: income.description,
+                isRecurring: income.isRecurring,
+                recurringPeriod: income.recurringPeriod?.rawValue
+            )
+            
+            try await apiClient.updateIncome(id: income.id, dto)
+            incomes[index] = income
+            updateTaxCalculation()
+        } catch let error as APIError {
+            errorMessage = error.errorDescription
+        } catch {
+            errorMessage = "Error al actualizar ingreso: \(error.localizedDescription)"
         }
         
         isLoading = false

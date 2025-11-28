@@ -75,7 +75,7 @@ struct AddIncomeView: View {
                         saveIncome()
                     }
                     .buttonStyle(ModernButtonStyle(style: .gradient(Color.gradientGreen), size: .small))
-                    .disabled(grossAmount <= 0 || netAmount <= 0)
+                    .disabled(grossAmount <= 0 || netAmount <= 0 || description.isEmpty)
                 }
             }
             .sheet(isPresented: $showTaxCalculation) {
@@ -90,6 +90,8 @@ struct AddIncomeView: View {
     }
     
     private func saveIncome() {
+        guard grossAmount > 0 && netAmount > 0 else { return }
+        
         let income = Income(
             grossAmount: grossAmount,
             netAmount: netAmount,
@@ -100,8 +102,12 @@ struct AddIncomeView: View {
             recurringPeriod: isRecurring ? selectedRecurringPeriod : nil
         )
         
-        viewModel.addIncome(income)
-        dismiss()
+        Task {
+            await viewModel.addIncome(income)
+            await MainActor.run {
+                dismiss()
+            }
+        }
     }
 }
 

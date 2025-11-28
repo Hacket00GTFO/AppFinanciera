@@ -53,19 +53,21 @@ class ExpensesViewModel: ObservableObject {
                 Expense(
                     id: dto.id,
                     amount: dto.amount,
-                    category: ExpenseCategory(rawValue: dto.category) ?? .other,
+                    category: ExpenseCategory(fromServerValue: dto.category) ?? .others,
                     date: dto.date,
                     description: dto.description,
                     isRecurring: dto.isRecurring,
-                    recurringPeriod: dto.recurringPeriod.flatMap { Expense.RecurringPeriod(rawValue: $0) },
+                    recurringPeriod: dto.recurringPeriod.flatMap { Expense.RecurringPeriod(fromServerValue: $0) },
                     notes: dto.notes
                 )
             }
             
             self.expenses = expensesList
             recalculateCategoryTotals()
+        } catch let error as APIError {
+            errorMessage = error.errorDescription
         } catch {
-            errorMessage = error.localizedDescription
+            errorMessage = "Error al cargar gastos: \(error.localizedDescription)"
         }
         
         isLoading = false
@@ -92,19 +94,21 @@ class ExpensesViewModel: ObservableObject {
             let newExpense = Expense(
                 id: responseDto.id,
                 amount: responseDto.amount,
-                category: ExpenseCategory(rawValue: responseDto.category) ?? .other,
+                category: ExpenseCategory(fromServerValue: responseDto.category) ?? .others,
                 date: responseDto.date,
                 description: responseDto.description,
                 isRecurring: responseDto.isRecurring,
-                recurringPeriod: responseDto.recurringPeriod.flatMap { Expense.RecurringPeriod(rawValue: $0) },
+                recurringPeriod: responseDto.recurringPeriod.flatMap { Expense.RecurringPeriod(fromServerValue: $0) },
                 notes: responseDto.notes
             )
             
             expenses.append(newExpense)
             recalculateCategoryTotals()
             showAddExpense = false
+        } catch let error as APIError {
+            errorMessage = error.errorDescription
         } catch {
-            errorMessage = error.localizedDescription
+            errorMessage = "Error al agregar gasto: \(error.localizedDescription)"
         }
         
         isLoading = false
@@ -115,14 +119,20 @@ class ExpensesViewModel: ObservableObject {
         isLoading = true
         errorMessage = nil
         
-        if let index = expenses.firstIndex(where: { $0.id == expense.id }) {
-            do {
-                try await apiClient.deleteExpense(id: expense.id)
-                expenses.remove(at: index)
-                recalculateCategoryTotals()
-            } catch {
-                errorMessage = error.localizedDescription
-            }
+        guard let index = expenses.firstIndex(where: { $0.id == expense.id }) else {
+            errorMessage = "Gasto no encontrado"
+            isLoading = false
+            return
+        }
+        
+        do {
+            try await apiClient.deleteExpense(id: expense.id)
+            expenses.remove(at: index)
+            recalculateCategoryTotals()
+        } catch let error as APIError {
+            errorMessage = error.errorDescription
+        } catch {
+            errorMessage = "Error al eliminar gasto: \(error.localizedDescription)"
         }
         
         isLoading = false
@@ -133,25 +143,31 @@ class ExpensesViewModel: ObservableObject {
         isLoading = true
         errorMessage = nil
         
-        if let index = expenses.firstIndex(where: { $0.id == expense.id }) {
-            do {
-                let dto = ExpenseDto(
-                    amount: expense.amount,
-                    category: expense.category.rawValue,
-                    date: expense.date,
-                    description: expense.description,
-                    isRecurring: expense.isRecurring,
-                    recurringPeriod: expense.recurringPeriod?.rawValue,
-                    notes: expense.notes,
-                    receiptImage: nil
-                )
-                
-                try await apiClient.updateExpense(id: expense.id, dto)
-                expenses[index] = expense
-                recalculateCategoryTotals()
-            } catch {
-                errorMessage = error.localizedDescription
-            }
+        guard let index = expenses.firstIndex(where: { $0.id == expense.id }) else {
+            errorMessage = "Gasto no encontrado"
+            isLoading = false
+            return
+        }
+        
+        do {
+            let dto = ExpenseDto(
+                amount: expense.amount,
+                category: expense.category.rawValue,
+                date: expense.date,
+                description: expense.description,
+                isRecurring: expense.isRecurring,
+                recurringPeriod: expense.recurringPeriod?.rawValue,
+                notes: expense.notes,
+                receiptImage: nil
+            )
+            
+            try await apiClient.updateExpense(id: expense.id, dto)
+            expenses[index] = expense
+            recalculateCategoryTotals()
+        } catch let error as APIError {
+            errorMessage = error.errorDescription
+        } catch {
+            errorMessage = "Error al actualizar gasto: \(error.localizedDescription)"
         }
         
         isLoading = false
@@ -191,8 +207,10 @@ class ExpensesViewModel: ObservableObject {
             for category in ExpenseCategory.allCases {
                 categoryExpenses[category] = 0.0
             }
+        } catch let error as APIError {
+            errorMessage = error.errorDescription
         } catch {
-            errorMessage = error.localizedDescription
+            errorMessage = "Error al eliminar todos los gastos: \(error.localizedDescription)"
         }
         
         isLoading = false

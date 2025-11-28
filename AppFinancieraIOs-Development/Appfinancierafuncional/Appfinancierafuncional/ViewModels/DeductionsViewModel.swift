@@ -53,8 +53,10 @@ class DeductionsViewModel: ObservableObject {
             }
             self.deductions = deductionsList
             updateTaxCalculation()
+        } catch let error as APIError {
+            errorMessage = error.errorDescription
         } catch {
-            errorMessage = error.localizedDescription
+            errorMessage = "Error al cargar deducciones: \(error.localizedDescription)"
         }
         
         isLoading = false
@@ -87,8 +89,10 @@ class DeductionsViewModel: ObservableObject {
             deductions.append(newDeduction)
             updateTaxCalculation()
             showAddDeduction = false
+        } catch let error as APIError {
+            errorMessage = error.errorDescription
         } catch {
-            errorMessage = error.localizedDescription
+            errorMessage = "Error al agregar deducción: \(error.localizedDescription)"
         }
         
         isLoading = false
@@ -99,15 +103,28 @@ class DeductionsViewModel: ObservableObject {
         isLoading = true
         errorMessage = nil
         
+        var deletedIndices: [Int] = []
         for index in offsets {
             let deduction = deductions[index]
             do {
                 try await apiClient.deleteDeduction(id: deduction.id)
-                deductions.remove(at: index)
-                updateTaxCalculation()
+                deletedIndices.append(index)
+            } catch let error as APIError {
+                errorMessage = error.errorDescription
+                break
             } catch {
-                errorMessage = error.localizedDescription
+                errorMessage = "Error al eliminar deducción: \(error.localizedDescription)"
+                break
             }
+        }
+        
+        // Eliminar solo los que se eliminaron exitosamente
+        for index in deletedIndices.reversed() {
+            deductions.remove(at: index)
+        }
+        
+        if !deletedIndices.isEmpty {
+            updateTaxCalculation()
         }
         
         isLoading = false
@@ -118,22 +135,28 @@ class DeductionsViewModel: ObservableObject {
         isLoading = true
         errorMessage = nil
         
-        if let index = deductions.firstIndex(where: { $0.id == deduction.id }) {
-            do {
-                let dto = DeductionDto(
-                    type: deduction.type.rawValue,
-                    amount: deduction.amount,
-                    percentage: deduction.percentage,
-                    date: deduction.date,
-                    description: deduction.description
-                )
-                
-                try await apiClient.updateDeduction(id: deduction.id, dto)
-                deductions[index] = deduction
-                updateTaxCalculation()
-            } catch {
-                errorMessage = error.localizedDescription
-            }
+        guard let index = deductions.firstIndex(where: { $0.id == deduction.id }) else {
+            errorMessage = "Deducción no encontrada"
+            isLoading = false
+            return
+        }
+        
+        do {
+            let dto = DeductionDto(
+                type: deduction.type.rawValue,
+                amount: deduction.amount,
+                percentage: deduction.percentage,
+                date: deduction.date,
+                description: deduction.description
+            )
+            
+            try await apiClient.updateDeduction(id: deduction.id, dto)
+            deductions[index] = deduction
+            updateTaxCalculation()
+        } catch let error as APIError {
+            errorMessage = error.errorDescription
+        } catch {
+            errorMessage = "Error al actualizar deducción: \(error.localizedDescription)"
         }
         
         isLoading = false

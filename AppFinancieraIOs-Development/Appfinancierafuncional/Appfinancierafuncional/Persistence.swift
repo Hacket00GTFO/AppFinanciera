@@ -15,18 +15,8 @@ struct PersistenceController {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
         
-        // Create sample income for preview
-        let sampleIncome = Income(
-            id: UUID(),
-            grossAmount: 1000,
-            netAmount: 850,
-            date: Date(),
-            type: .employment,
-            description: "Monthly salary",
-            isRecurring: true,
-            recurringPeriod: .monthly
-        )
-        
+        // CoreData se usa solo para persistencia local si es necesario
+        // Los datos principales vienen del API
         do {
             try viewContext.save()
         } catch {

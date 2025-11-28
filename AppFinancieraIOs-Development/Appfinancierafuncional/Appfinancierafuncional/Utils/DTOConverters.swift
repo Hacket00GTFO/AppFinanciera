@@ -36,6 +36,40 @@ extension Income.IncomeType {
     }
 }
 
+// MARK: - Expense Recurring Period Conversion Helper
+
+extension Expense.RecurringPeriod {
+    /// Convierte una cadena del servidor API a RecurringPeriod
+    init?(fromServerValue value: String) {
+        // Intentar directo primero
+        if let period = Expense.RecurringPeriod(rawValue: value) {
+            self = period
+            return
+        }
+        
+        // Si no funciona, intentar con lowercased
+        let lowercased = value.lowercased()
+        if let period = Expense.RecurringPeriod(rawValue: lowercased) {
+            self = period
+            return
+        }
+        
+        // Si aún no funciona, mapear manualmente
+        switch lowercased {
+        case "weekly", "semanal":
+            self = .weekly
+        case "biweekly", "quincenal":
+            self = .biweekly
+        case "monthly", "mensual":
+            self = .monthly
+        case "yearly", "anual":
+            self = .yearly
+        default:
+            return nil
+        }
+    }
+}
+
 // MARK: - Recurring Period Conversion Helper
 
 extension Income.RecurringPeriod {
@@ -108,20 +142,36 @@ extension ExpenseCategory {
         
         // Mapeo manual si es necesario
         switch lowercased {
-        case "food", "comida", "groceries":
+        case "food", "comida", "groceries", "alimentación":
             self = .food
-        case "transportation", "transporte":
-            self = .transportation
-        case "entertainment", "entretenimiento":
-            self = .entertainment
-        case "utilities", "servicios":
-            self = .utilities
-        case "healthcare", "salud":
-            self = .healthcare
-        case "shopping", "compras":
-            self = .shopping
-        case "other", "otro":
-            self = .other
+        case "transport", "transporte", "transportation":
+            self = .transport
+        case "leisure", "ocio", "entertainment", "entretenimiento":
+            self = .leisure
+        case "water", "agua":
+            self = .water
+        case "gas":
+            self = .gas
+        case "electricity", "luz", "light":
+            self = .electricity
+        case "internet", "internet + tel + tv":
+            self = .internet
+        case "rent", "alquiler/hipoteca", "alquiler", "hipoteca":
+            self = .rent
+        case "loans", "préstamos":
+            self = .loans
+        case "taxes", "impuestos":
+            self = .taxes
+        case "education", "escolares":
+            self = .education
+        case "contingencies", "imprevistos":
+            self = .contingencies
+        case "travel", "viajes":
+            self = .travel
+        case "subscriptions", "suscripciones":
+            self = .subscriptions
+        case "other", "otro", "others", "other expenses", "otros gastos":
+            self = .others
         default:
             return nil
         }
@@ -133,16 +183,27 @@ extension ExpenseCategory {
 extension ExpenseResponseDto {
     /// Convierte un DTO del servidor a un modelo Expense
     func toExpense() -> Expense {
-        Expense(
+        // Intentar decodificar receiptImage si está presente
+        var receiptImageData: Data? = nil
+        if let receiptImageString = receiptImage, !receiptImageString.isEmpty {
+            // Intentar decodificar como base64
+            if let data = Data(base64Encoded: receiptImageString) {
+                receiptImageData = data
+            } else if let data = receiptImageString.data(using: .utf8) {
+                receiptImageData = data
+            }
+        }
+        
+        return Expense(
             id: id,
             amount: amount,
-            category: ExpenseCategory(fromServerValue: category) ?? .other,
+            category: ExpenseCategory(fromServerValue: category) ?? .others,
             date: date,
             description: description,
             isRecurring: isRecurring,
-            recurringPeriod: recurringPeriod.flatMap { Income.RecurringPeriod(fromServerValue: $0) },
+            recurringPeriod: recurringPeriod.flatMap { Expense.RecurringPeriod(fromServerValue: $0) },
             notes: notes,
-            receiptImage: receiptImage
+            receiptImage: receiptImageData
         )
     }
 }
